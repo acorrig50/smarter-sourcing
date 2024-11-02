@@ -36,25 +36,31 @@ def the_scraping(input_query):
     sixth = requests.get(low_to_high_preowned_sold)
     
     seventh = requests.get(low_to_high_new)
-    eigth = requests.get(low_to_high_new_sold)
+    eighth = requests.get(low_to_high_new_sold)
     
-    page_storage = {
-        0: first,
-        1: second,
-        2: third,
-        3: fourth,
-        4: fifth,
-        5: sixth,
-        6: seventh,
-        7: eigth
-    }
+    # store the results of each query in a list
+    url_storage = [
+        first, 
+        second, 
+        third, 
+        fourth, 
+        fifth, 
+        sixth, 
+        seventh, 
+        eighth
+    ]
+    text = []
+    values = []
     
-    for i in range(0,7):
-        soup = bs4(page_storage[i], 'html.parser')
-        print(soup.prettify())
-        print('\n')
-
-    
+    # take the text of each search and store it in "text" list
+    for i in range(len(url_storage)):
+        soup = bs4(url_storage[i].content, 'html.parser')
+        golden_goose = soup.find("h1", {'class':'srp-controls__count-heading'})
+        text.append(golden_goose.get_text().split(" "))
+        values.append(float(text[i][0].replace('+','').replace(",",'')))
+        
+        
+    print(values)
     search_query = input_query
 
-the_scraping("american eagle jeans")
+the_scraping("american eagle kick boot jeans")
