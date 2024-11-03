@@ -66,6 +66,10 @@ def the_scraping(input_query):
     low_to_high_preowned_rate = values[5] / values[4]
     low_to_high_new_rate = values[7] / values[6]
     
+    store_values =  best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
+    print(type(store_values))
+    
     return best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
 
-the_scraping("patagonia synchilla pullover mens")
+var = the_scraping("chicos jeggings womens")
+print(var)
