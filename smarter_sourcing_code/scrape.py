@@ -57,19 +57,38 @@ def the_scraping(input_query):
         soup = bs4(url_storage[i].content, 'html.parser')
         golden_goose = soup.find("h1", {'class':'srp-controls__count-heading'})
         text.append(golden_goose.get_text().split(" "))
-        values.append(float(text[i][0].replace('+','').replace(",",'')))
+        values.append(int(text[i][0].replace('+','').replace(",",'')))
     
     print(values)
     
-    best_match_preowned_rate = values[1] / values[0]
-    best_match_new_rate = values[3] / values[2]
-    low_to_high_preowned_rate = values[5] / values[4]
-    low_to_high_new_rate = values[7] / values[6]
+    try:
+        best_match_preowned_rate = values[1] / values[0]
+    except ZeroDivisionError:
+        print("The first check had a zero in it")
+    
+    try:
+        best_match_new_rate = values[3] / values[2]
+    except ZeroDivisionError:
+        print("The second check had a zero in it")
+    
+    try:
+        low_to_high_preowned_rate = values[5] / values[4]
+    except ZeroDivisionError:
+        print("The third check had a zero in it")
+    
+    try:    
+        low_to_high_new_rate = values[7] / values[6]
+    except ZeroDivisionError:
+        print("The fourth check had a zero in it")
+    
     
     store_values =  best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
-    print(type(store_values))
     
     return best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
 
-var = the_scraping("chicos jeggings womens")
-print(var)
+var = the_scraping("lands end rugby shirt mens")
+
+print("best match used rate: {}".format(var[0]))
+print("best match new rate: {}".format(var[1]))
+print("low to high used rate: {}".format(var[2]))
+print("low to high new rate: {}".format(var[3]))
