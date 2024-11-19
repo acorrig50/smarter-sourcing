@@ -28,12 +28,6 @@ def the_scraping(input_query):
     actual_element = 'BOLD'
     
     #starting the process
-    first = requests.get(best_match_preowned)
-    second = requests.get(best_match_sold_preowned)
-    
-    third = requests.get(best_match_new)
-    fourth = requests.get(best_match_sold_new)
-    
     fifth = requests.get(low_to_high_preowned)
     sixth = requests.get(low_to_high_preowned_sold)
     
@@ -42,10 +36,6 @@ def the_scraping(input_query):
     
     # store the results of each query in a list
     url_storage = [
-        first, # 0
-        second, # 1
-        third, # 2
-        fourth, # 3
         fifth, # 4
         sixth, # 5
         seventh, # 6
@@ -64,33 +54,20 @@ def the_scraping(input_query):
     print(values)
     
     try:
-        best_match_preowned_rate = values[1] / values[0]
-    except ZeroDivisionError:
-        print("The first check had a zero in it")
-    
-    try:
-        best_match_new_rate = values[3] / values[2]
-    except ZeroDivisionError:
-        print("The second check had a zero in it")
-    
-    try:
-        low_to_high_preowned_rate = values[5] / values[4]
+        low_to_high_preowned_rate = values[1] / values[0]
     except ZeroDivisionError:
         print("The third check had a zero in it")
     
     try:    
-        low_to_high_new_rate = values[7] / values[6]
+        low_to_high_new_rate = values[3] / values[2]
     except ZeroDivisionError:
         print("The fourth check had a zero in it")
     
     
     # store_values =  best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
     
-    return best_match_preowned_rate, best_match_new_rate, low_to_high_preowned_rate, low_to_high_new_rate
+    return low_to_high_preowned_rate, low_to_high_new_rate
 
 var = the_scraping("mens pants size extra large")
-
-print("best match used rate: {}".format(var[0]))
-print("best match new rate: {}".format(var[1]))
-print("low to high used rate: {}".format(var[2]))
-print("low to high new rate: {}".format(var[3]))
+print("low to high used rate: {}".format(var[0]))
+print("low to high new rate: {}".format(var[1]))
